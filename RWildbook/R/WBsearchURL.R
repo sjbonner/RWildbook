@@ -10,7 +10,6 @@
 #'
 #' @param jdoql The JDOQL string for data searching.
 #'
-#' @export
 #'
 #' @examples
 #' searchURL1 <- WBsearchURL(username="xinxin",

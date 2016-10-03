@@ -7,61 +7,74 @@
 searchWB(searchURL = NULL, username = NULL, password = NULL, baseURL,
   jdoql = NULL, object = "encounter", location = NULL,
   locationID = NULL, sighting_date = c("1964-01-01", "2016-12-31"),
-  encounter_submission_dates = c("2003-01-01", "2016-12-31"),
+  encounter_submission_date = c("2003-01-01", "2016-12-31"),
   date_format = "\%Y-\%m-\%d", sex = c("male", "female", "unknown"),
   status = c("alive", "dead"), measurement = NULL, individualID = NULL,
   encounterID = NULL, encounter_type = NULL, Date_of_birth = NULL,
-  Date_of_death = NULL)
+  Date_of_death = NULL, showJDOQL = FALSE, showURL = TRUE)
 }
 \arguments{
-\item{searchURL}{A URL for data searching in the Wildbook framework.}
+\item{searchURL}{A character object of the URL for data searching in the Wildbook framework.}
 
-\item{username}{The username in the Wildbook framework.}
+\item{username}{A character object of the username in the Wildbook framework.}
 
-\item{password}{The password in the Wildbook framework.}
+\item{password}{A character object of the password in the Wildbook framework.}
 
-\item{baseURL}{The base URL represent the Wildbook data base.}
+\item{baseURL}{A character object of the base URL represent the Wildbook data base.}
 
-\item{jdoql}{The JDOQL string for data searching.}
+\item{jdoql}{A character object of the JDOQL string for data searching.}
 
-\item{object}{Either "encounter" for the encounter search or "individual" for
-the individual search.}
+\item{object}{A character object for defining the the search type. The value can be
+either "encounter" for the encounter search or "individual" for the individual search.
+The default value is "encounter" for encounter search.}
 
-\item{location}{A character vector for filtering location names.}
+\item{location}{A vector of character strings for searching encounters in locations
+containing the character strings.}
 
-\item{locationID}{A character vector for filtering the locationID.}
+\item{locationID}{A character vector for searching encounters in locations with
+specified locationID. Note that the location ID is case sensitive.}
 
 \item{sighting_date}{A character vector for filtering encounters which are
-sighted during a period of time.}
+sighted during a period of time. More information of the date argument can
+be found in the Detail section.}
 
-\item{encounter_submission_dates}{A character vector for filtering encounters
+\item{encounter_submission_date}{A character vector for filtering encounters
 which are submitted during a period of time.}
 
 \item{date_format}{The format for all the arguments of date value.}
 
-\item{sex}{A character vector of maximum size three representing the values
-for the sex filter.}
+\item{sex}{A character vector of maximum size of three representing the values
+for the sex filter. The value can be any combination of "male", "female"
+and "unknown". The default value is "sex = c("male", "female", "unknown")".}
 
-\item{status}{A character vector of maximum sizetwo representing the values
-for the encounter status.}
+\item{status}{A character vector of maximum size of two representing the values
+for the encounter status. The value can be any combination of "alive" and
+"dead".}
 
 \item{measurement}{A numeric object sets the minimum individual measurement
 when searching in the Wildbook framework.}
 
-\item{individualID}{A character vector for searching data of specific
-individual ID.}
+\item{individualID}{A character vector of individual ID for searching data
+of specified individual IDs. Note that the individual ID is case sensitive.}
 
 \item{encounterID}{A character vector for searching data of specific
-encounter ID.}
+encounter ID. Note that the encounter ID is case sensitive.}
 
 \item{encounter_type}{A character vector of maximum size of three for
-searching data with specific encounter type.}
+searching data with specific encounter type. It can be any combination
+of â€œunapprovedâ€?, â€œapproved â€? and â€œunidentifiableâ€?.}
 
 \item{Date_of_birth}{A character vector for searching data of individual
 which is born during a period of time.}
 
 \item{Date_of_death}{A character vector for searching data of individual
 which died during a period of time.}
+
+\item{showJDOQL}{logical. If FALSE(default) the function will not return
+the search JDOQL, otherwise the function returns the search JDOQL.}
+
+\item{showURL}{logical. If TRUE(default) the function returns the search
+URL, otherwise the function will not return the search URL.}
 }
 \description{
 This function allows users to pull data from the Wildbook framework in R.
@@ -84,9 +97,10 @@ Wildbook framework to conduct more complex searches.
 \strong{Filtering Locations}
 
 Locations may be filtered with either location names or location ids.
-Multiple location names and/or ids can be provided. In this case the search
-will return all objects (encounters or individuals) matching at least one of
-the locations.
+Multiple location names can be given to the \code{location} argument.
+Multiple location ids can be given to the \code{locationID} argument.
+In this case the search will return all objects (encounters or individuals)
+matching at least one of the locations.
 
 \strong{Filtering Dates}
 
@@ -96,12 +110,19 @@ results will be filtered from 00:00:00 to 24:00:00 on that day. If two dates
 are provided then results will be filtered from 00:00:00 on the first date to
 24:00:00 on the second date. By default, dates must be entered using the
 "YYYY-MM-DD" format. Other formats may be used by specifying the value of
-\code{date_format}.
+\code{date_format}. More details about the date format can be found in the help
+page of \code{as.Date} The same rule can apply to the \code{encounter_submission_date},
+\code{Date_of_birth} and \code{Date_of_death} filters.
+
+\strong{Defalut NULL value for filter arguments}
+
+The default value for some filter arguments are NULL. NULL value for a filter argument
+returns data not filtering that argument.
 }
 \examples{
 ## The following examples conduct the same search using the complete searchURL, JDOQL, or variable filters.
 
-data1 <- searchWB(searchURL = "http://xinxin:changeme@whaleshark.org/api/jdoql?SELECT FROM org.ecocean.MarkedIndividual WHERE individualID == 'A-001'")
+data1 <- searchWB(searchURL = "http://xinxin:changeme@whaleshark.org/api/jdoql?SELECT FROM org.ecocean.Encounter WHERE individualID == 'A-001'")
 
 data2 <- searchWB(username="xinxin",password="changeme",baseURL ="whaleshark.org",jdoql="SELECT FROM org.ecocean.Encounter WHERE catalogNumber != null &&  (( dateInMilliseconds >= -189388800000 )&&( dateInMilliseconds <= 1483228740000 ))&&(( dwcDateAddedLong >= 1041379200000 )&&( dwcDateAddedLong <= 1483228740000 ))&&(( individualID == 'a-001' )) ")
 

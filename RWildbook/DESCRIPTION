@@ -15,3 +15,6 @@ License: everyone
 Depends:
     jsonlite
 RoxygenNote: 5.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr

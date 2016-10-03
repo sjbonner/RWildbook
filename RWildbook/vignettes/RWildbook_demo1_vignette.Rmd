@@ -1,0 +1,42 @@
+---
+title: "vignette for RWildbook-demo-1 "
+author: "Xinxin Huang"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Demo of pulling and searching data from Wildbook framework}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This demo shows you how to search and pull data from Wildbook framework with RWildbook package.
+In this demo, all datasets below are searching for the same set of data which is all the encounter of individual "A-001" in "whaleshark.org".
+
+The searchWB function provides the main interface to the Wilbook framework and can be used in
+one of three ways.
+
+* Case 1. If you have a search URL on hand. You can run the following code.
+
+```{r, eval=FALSE}
+data1 <- searchWB(searchURL = "http://xinxin:changeme@whaleshark.org/api/jdoql?SELECT FROM org.ecocean.Encounter WHERE individualID == 'A-001'")
+```
+
+* Case 2. If you do not have the search URL but have the JDOQL query for the search.
+
+```{r, eval=FALSE}
+data2<- searchWB(username="xinxin",
+                 password="changeme",
+                 baseURL ="whaleshark.org",
+                 jdoql="SELECT FROM org.ecocean.Encounter WHERE individualID == 'A-001'")
+```
+
+* Case 3. If you do not have searchURL or the JDOQL query ready for searching the data.
+You can supply filters based on the variables within the database.
+
+```{r, eval=FALSE}
+data3 <- searchWB(username="xinxin",
+                  password="changeme",
+                  baseURL ="whaleshark.org",
+                  object="Encounter",
+                  individualID=c("A-001"))
+```

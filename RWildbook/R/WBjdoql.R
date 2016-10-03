@@ -30,7 +30,6 @@
 #'
 #' @param Date_of_death A character vector for searching data of individual which is dead during a period of time.
 #'
-#' @export
 #'
 #' @examples
 #' ##generate the JDOQL query for searching all the encounters of individual "a-001".
