@@ -89,7 +89,7 @@
 #'
 #' @param encounter_type A character vector of maximum size of three for
 #'   searching data with specific encounter type. It can be any combination
-#'   of “unapproved�?, “approved �? and “unidentifiable�?.
+#'   of “unapproved???, “approved ??? and “unidentifiable???.
 #'
 #' @param Date_of_birth A character vector for searching data of individual
 #'   which is born during a period of time.
@@ -158,10 +158,7 @@ searchWB <-
     }
     else{
       tmpfile <- tempfile()
-      download.file(
-        "http://xinxin:changeme@whaleshark.org/api/jdoql?SELECT FROM org.ecocean.Encounter WHERE individualID == 'A-001'",method =
-          "wget",destfile = tmpfile
-      )
+      download.file( searchURL ,method ="wget",destfile = tmpfile)
       data <- fromJSON(readLines(tmpfile,warn = FALSE))
     }
     return(data)
