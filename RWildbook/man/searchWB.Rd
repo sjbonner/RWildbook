@@ -62,7 +62,7 @@ encounter ID. Note that the encounter ID is case sensitive.}
 
 \item{encounter_type}{A character vector of maximum size of three for
 searching data with specific encounter type. It can be any combination
-of “unapproved�?, “approved �? and “unidentifiable�?.}
+of “unapproved???, “approved ??? and “unidentifiable???.}
 
 \item{Date_of_birth}{A character vector for searching data of individual
 which is born during a period of time.}
