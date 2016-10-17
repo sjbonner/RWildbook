@@ -13,7 +13,8 @@ Description: The primary objective of this package is to provide an R interface
     RMark package in R).
 License: everyone
 Depends:
-    jsonlite
+    jsonlite,
+    data.table
 RoxygenNote: 5.0.1
 Suggests: knitr,
     rmarkdown

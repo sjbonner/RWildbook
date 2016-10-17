@@ -4,7 +4,8 @@
 \alias{dateTOmillisecond}
 \title{Transform a vector of date to a vector of millisecond.}
 \usage{
-dateTOmillisecond(date, origin = "1970-01-01", format = "\%Y-\%m-\%d")
+dateTOmillisecond(date, origin = "1970-01-01", format = "\%Y-\%m-\%d",
+  interval = TRUE)
 }
 \arguments{
 \item{date}{A character vector represent a period of time from date[1] to date[2].}
@@ -12,6 +13,9 @@ dateTOmillisecond(date, origin = "1970-01-01", format = "\%Y-\%m-\%d")
 \item{origin}{A point of time which set to be zero in millisecond.}
 
 \item{format}{A format for date and origin arguments.}
+
+\item{interval}{A logical argument which equals to TRUE by default when the function transfer an period of dates to millisecond.
+When interval=FALSE, the function returns the last minute of every elements of date to millisecons.}
 }
 \description{
 This function is to transform a period of time in date to millisecond according to the origin date and the format of date.
@@ -20,12 +24,15 @@ This function is to transform a period of time in date to millisecond according 
 A vector of size two represent a period of time. The start date of the period will be transform to the first millisecond of the date and the end of the period to the last millisecond.
 }
 \examples{
-dateTOmillisecond(date=c("1970-01-01","1970-02-01"))
+dateTOmillisecond(date=c("1970-01-01","1970-02-01"),interval=TRUE)
 #When the first date is after the second one
-dateTOmillisecond(date=c("1970-02-01","1970-01-01"))
+dateTOmillisecond(date=c("1970-02-01","1970-01-01"),interval=TRUE)
 
 #examples in different formats
-dateTOmillisecond(date=c("1970-01-01","1970-02-01"),format="\%Y-\%d-\%m")
-dateTOmillisecond(date=c("1970/01/01","1970/02/01"),format="\%Y/\%m/\%d")
+dateTOmillisecond(date=c("1970-01-01","1970-02-01"),format="\%Y-\%d-\%m",interval=TRUE)
+dateTOmillisecond(date=c("1970/01/01","1970/02/01"),format="\%Y/\%m/\%d",interval=TRUE)
+
+#When "date" does not represent a period of time
+dateTOmillisecond(date=c("1970-01-01","1970-02-01"),interval=FALSE)
 }
 
