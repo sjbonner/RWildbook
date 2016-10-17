@@ -60,7 +60,7 @@ data1 <- searchWB(username="xinxin",
                   object="Encounter",
                   individualID=paste0("A-0",rep(0:9,rep(10,10)),rep(0:9,10))[-1])
 
-## Defined start and end dates of capture occasions
+## Define start and end dates of capture occasions
 start.dates1 <- paste0(1998:2016,"-01-01") #Define the start.date value
 end.dates1 <- paste0(1998:2016,"-04-01") #Define the end.date value
 
@@ -82,6 +82,7 @@ marked.data1.proc=process.data(marked.data1.1,model="cjs",begin.time=1)
 marked.data1.ddl=make.design.data(marked.data1.proc)
 marked.data1.cjs=crm(marked.data1.proc,marked.data1.ddl,model.parameters=list(Phi=list(formula=~time),p=list(formula=~time)))
 
+## Format data including location as a covariate
 marked.data1.2 <- marked.data(data = data1,
                              varname_of_capturetime = "dateInMilliseconds",
                              varlist = c("individualID","locationID"),
