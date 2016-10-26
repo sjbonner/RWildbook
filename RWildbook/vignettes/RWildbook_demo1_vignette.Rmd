@@ -15,11 +15,8 @@ In this demo, all datasets below are searching for the same set of data which is
 The searchWB function provides the main interface to the Wilbook framework and can be used in
 one of three ways.
 
-<<<<<<< HEAD
-* Case 1. If you have a search URL on hand then you can run the following code.
-=======
+
 * Case 1. You can supply filters based on the variables within the database.
->>>>>>> 9df8772723b4c333f1b5fb0a1a45b7175f672b04
 
 ```{r, eval=FALSE}
 data1 <- searchWB(username="xinxin",
@@ -38,11 +35,7 @@ data2<- searchWB(username="xinxin",
                  jdoql="SELECT FROM org.ecocean.Encounter WHERE individualID == 'A-001'")
 ```
 
-<<<<<<< HEAD
-* Case 3. If you do not have searchURL or the JDOQL query ready for searching the data then you can supply filters based on the variables within the database.
-=======
 * Case 3.  If you have a searchURL on hand, you can directly open the URL with function "searchWB".
->>>>>>> 9df8772723b4c333f1b5fb0a1a45b7175f672b04
 
 ```{r, eval=FALSE}
 data3 <- searchWB(searchURL = "http://xinxin:changeme@whaleshark.org/api/jdoql?SELECT FROM org.ecocean.Encounter WHERE individualID == 'A-001'")
