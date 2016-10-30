@@ -18,13 +18,34 @@
 #'                           jdoql="SELECT FROM org.ecocean.MarkedIndividual WHERE individualID == 'A-001'")
 
 WBsearchURL <-
-function(username,password,baseURL,jdoql){
-  #This function is to call data from a wildbook site via JDO API
-  #This function is for users who know JDOQL query language
-  #The JDOQL query can be directly written by users
-  #An example of "baseURL" is "whaleshark.org" (No "http://www.").
-  searchURL<-paste0("http://",username,":",password,
-                    "@",baseURL,
-                    "/api/jdoql?",jdoql)
-  return(as.character(searchURL))
-}
+  function(username,
+           password,
+           baseURL,
+           jdoql,
+           method = NULL) {
+    #This function is to call data from a wildbook site via JDO API
+    #This function is for users who know JDOQL query language
+    #The JDOQL query can be directly written by users
+    #An example of "baseURL" is "whaleshark.org" (No "http://www.").
+    
+    if (method == "readLines") {
+      searchURL <- paste0("http://",
+                          username,
+                          ":",
+                          password,
+                          "@",
+                          baseURL,
+                          "/api/jdoql?",
+                          jdoql)
+    }
+    else if (method == "curl") {
+      searchURL <- paste0("http://www.", baseURL,
+                          "/api/jdoql?", jdoql)
+    }
+    else{
+      stop(
+        "You must supply the method of retrieving the data. Currently supported methods include readLines and curl.\n"
+      )
+    }
+    return(as.character(searchURL))
+  }

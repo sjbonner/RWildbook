@@ -121,15 +121,25 @@
 
 searchWB <-
   function(searchURL = NULL,
-           username = NULL,password = NULL,baseURL, jdoql = NULL,
+           username = NULL,
+           password = NULL,
+           baseURL,
+           jdoql = NULL,
            object = "encounter",
-           location = NULL,locationID = NULL,
-           sighting_date = c("1964-01-01","2016-12-31"),encounter_submission_date =
-             c("2003-01-01","2016-12-31"), date_format = "%Y-%m-%d",
-           sex = c("male","female","unknown"),status = c("alive","dead"),
-           measurement = NULL,individualID = NULL,
-           encounterID = NULL,encounter_type = NULL,
-           Date_of_birth = NULL,Date_of_death = NULL,
+           location = NULL,
+           locationID = NULL,
+           sighting_date = c("1964-01-01", "2016-12-31"),
+           encounter_submission_date =
+             c("2003-01-01", "2016-12-31"),
+           date_format = "%Y-%m-%d",
+           sex = c("male", "female", "unknown"),
+           status = c("alive", "dead"),
+           measurement = NULL,
+           individualID = NULL,
+           encounterID = NULL,
+           encounter_type = NULL,
+           Date_of_birth = NULL,
+           Date_of_death = NULL,
            showJDOQL = FALSE,
            showURL = TRUE) {
     #This function is to get data from the Wildbook framework via the JDO API
@@ -138,10 +148,17 @@ searchWB <-
     if (is.null(searchURL) && is.null(jdoql)) {
       jdoql <- WBjdoql(
         object,
-        location,locationID,
-        sighting_date,encounter_submission_date, date_format,
-        sex,status, measurement,individualID,
-        encounterID,encounter_type
+        location,
+        locationID,
+        sighting_date,
+        encounter_submission_date,
+        date_format,
+        sex,
+        status,
+        measurement,
+        individualID,
+        encounterID,
+        encounter_type
       )
     }
     #Step 2.Define(generate) the search URL
@@ -150,22 +167,36 @@ searchWB <-
         warning("Lack of username and password")
         break
       }
-      searchURL <- WBsearchURL(username,password,baseURL,jdoql)
+      if (.Platform$OS.type == "windows") {
+        searchURL <-
+          WBsearchURL(username, password, baseURL, jdoql, method = "readLines")
+      }
+      else{
+        searchURL <- WBsearchURL(NULL, NULL, baseURL, jdoql, method = "curl")
+      }
     }
-    #Step 3. Get data from Wildbook framework with the search URL
+    
+    #Step 3. (Options)Show the search URL/JDOQL
+    if (showURL == TRUE)
+      cat(searchURL)
+    if (showJDOQL == TRUE)
+      cat(jdoql)
+    
+    #Step 4. Get data from Wildbook framework with the search URL
     if (.Platform$OS.type == "windows") {
-      tmpdata <- readLines(searchURL,warn = FALSE)
+      cat(searchURL)
+      tmpdata <- readLines(searchURL, warn = FALSE)
       data <- fromJSON(tmpdata)
     }
     else{
       tmpfile <- tempfile()
-      download.file( searchURL ,method ="wget",destfile = tmpfile)
-      data <- fromJSON(readLines(tmpfile,warn = FALSE))
+      download.file(
+        URLencode(searchURL) ,
+        method = "curl",
+        destfile = tmpfile,
+        extra = paste0("-u ", username, ":", password)
+      )
+      data <- fromJSON(readLines(tmpfile, warn = FALSE))
     }
-      return(data)
-    #Step 4. (Options)Show the search URL/JDOQL
-    if(showURL==TRUE) cat(searchURL)
-    if(showJDOQL==TRUE) cat(jdoql)
-
+    return(data)
   }
-
