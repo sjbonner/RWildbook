@@ -14,7 +14,8 @@ Description: The primary objective of this package is to provide an R interface
 License: everyone
 Depends:
     jsonlite,
-    data.table
+    data.table,
+    rappdirs
 RoxygenNote: 5.0.1
 Suggests: knitr,
     rmarkdown

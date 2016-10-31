@@ -21,14 +21,13 @@ WBsearchURL <-
   function(username,
            password,
            baseURL,
-           jdoql,
-           method = NULL) {
+           jdoql) {
     #This function is to call data from a wildbook site via JDO API
     #This function is for users who know JDOQL query language
     #The JDOQL query can be directly written by users
     #An example of "baseURL" is "whaleshark.org" (No "http://www.").
     
-    if (method == "readLines") {
+    if (!is.null(username) && !is.null(password)) {
       searchURL <- paste0("http://",
                           username,
                           ":",
@@ -38,13 +37,13 @@ WBsearchURL <-
                           "/api/jdoql?",
                           jdoql)
     }
-    else if (method == "curl") {
+    else if(is.null(username) && is.null(password)) {
       searchURL <- paste0("http://www.", baseURL,
                           "/api/jdoql?", jdoql)
     }
     else{
       stop(
-        "You must supply the method of retrieving the data. Currently supported methods include readLines and curl.\n"
+        "You must supply both the username and password or neither.\n"
       )
     }
     return(as.character(searchURL))

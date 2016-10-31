@@ -144,6 +144,11 @@ searchWB <-
            showURL = TRUE) {
     #This function is to get data from the Wildbook framework via the JDO API
     #For user of different level
+    
+    # Preliminiaries
+    # Identify OS (Thanks to Hadley Wickham.)
+    myos <- rappdirs:::get_os()
+    
     #Step 1. Define(generate) the JDOQL query
     if (is.null(searchURL) && is.null(jdoql)) {
       jdoql <- WBjdoql(
@@ -167,12 +172,15 @@ searchWB <-
         warning("Lack of username and password")
         break
       }
-      if (.Platform$OS.type == "windows") {
+      if (myos == "win" || myos == "unix") {
         searchURL <-
-          WBsearchURL(username, password, baseURL, jdoql, method = "readLines")
+          WBsearchURL(username, password, baseURL, jdoql)
+      }
+      else if(myos == "mac"){
+        searchURL <- WBsearchURL(NULL, NULL, baseURL, jdoql)
       }
       else{
-        searchURL <- WBsearchURL(NULL, NULL, baseURL, jdoql, method = "curl")
+        stop("Unknown operating system",myos,".\n")
       }
     }
     
@@ -183,12 +191,21 @@ searchWB <-
       cat(jdoql)
     
     #Step 4. Get data from Wildbook framework with the search URL
-    if (.Platform$OS.type == "windows") {
+    if (myos == "win") {
       cat(searchURL)
       tmpdata <- readLines(searchURL, warn = FALSE)
       data <- fromJSON(tmpdata)
     }
-    else{
+    else if(myos == "unix"){
+      tmpfile <- tempfile()
+      download.file(
+        URLencode(searchURL) ,
+        method = "wget",
+        destfile = tmpfile
+      )
+      data <- fromJSON(readLines(tmpfile, warn = FALSE))
+    }
+    else if(myos == "mac"){
       tmpfile <- tempfile()
       download.file(
         URLencode(searchURL) ,
@@ -198,5 +215,6 @@ searchWB <-
       )
       data <- fromJSON(readLines(tmpfile, warn = FALSE))
     }
+    
     return(data)
   }
