@@ -76,7 +76,7 @@
 #' markedData1.cjs=crm(markedData1.proc,markedData1.ddl,model.parameters=list(Phi=list(formula=~time),p=list(formula=~time)))
 #'
 #' ## Format data including location as a covariate
-#'markedData1.2 <- markedData(data = data1,
+#' markedData1.2 <- markedData(data = data1,
 #'                            varname_of_capturetime = "dateInMilliseconds",
 #'                            varlist = c("individualID","locationID"),
 #'                            start.dates = start.dates1,
