@@ -37,6 +37,8 @@
 #'
 #' @param origin A point of time which set to be zero in millisecond.
 #'
+#' @param removeZeros If TRUE (default) then individuals with no captures are removed from the data.
+#'
 #' @importFrom data.table data.table
 #'
 #' @export
@@ -84,14 +86,15 @@
 #'                            date_format = "%Y-%m-%d",
 #'                            origin = "1970-01-01")
 #'
-markedData<-
+markedData <-
   function(data,
-           varname_of_capturetime="dateInMilliseconds",
-           varlist=c("individualID"),
+           varname_of_capturetime = "dateInMilliseconds",
+           varlist = c("individualID"),
            start.dates,
-           end.dates=NULL,
-           date_format="%Y-%m-%d",
-           origin="1970-01-01"){
+           end.dates = NULL,
+           date_format = "%Y-%m-%d",
+           origin = "1970-01-01",
+           removeZeros = TRUE) {
     #This function is to process the raw data from searchWB{RWildbook} function for process.data{marked} function.
     #data, the raw dataset from searchWB{RWildbook} function.
     #varlist, a character vector of the names of variables for mark-recapture analysis
@@ -100,35 +103,76 @@ markedData<-
     #end.dates=NULL(default) means the end date of one capture occasion is the start point of the next capture occasion.
     #date_format sets the format of start.dates and end.dates.
     #origin sets the origin when transfering dates to milliseconds.
-
+    
     #step 1. pull the needed variable from the raw data set.
-    data <- data[c(varname_of_capturetime,varlist)] #abstract the encounter sighted date and individual ID.
-
+    data <-
+      data[c(varname_of_capturetime, varlist)] #abstract the encounter sighted date and individual ID.
+    
     #Step 2. Transfer begin.date, end.date milliseconds.
-    start.dates <- dateTOmillisecond(date=start.dates, format=date_format, origin=origin, interval=FALSE)
-    end.dates <- dateTOmillisecond(date=end.dates, format=date_format, origin=origin, interval=FALSE)
-    if(is.null(end.dates)) end.dates <- c(start.dates[-1],dateTOmillisecond(date=format(Sys.Date(),date_format),format=date_format,origin=origin,interval=FALSE))
-
+    start.dates <-
+      dateTOmillisecond(
+        date = start.dates,
+        format = date_format,
+        origin = origin,
+        interval = FALSE
+      )
+    end.dates <-
+      dateTOmillisecond(
+        date = end.dates,
+        format = date_format,
+        origin = origin,
+        interval = FALSE
+      )
+    if (is.null(end.dates))
+      end.dates <-
+      c(
+        start.dates[-1],
+        dateTOmillisecond(
+          date = format(Sys.Date(), date_format),
+          format = date_format,
+          origin = origin,
+          interval = FALSE
+        )
+      )
+    
     #Step 3. Check the validity of capture time interval.
-    if(!length(start.dates)==length(end.dates)){
+    if (!length(start.dates) == length(end.dates)) {
       warning("start.dates and end.dates should have the same length")
       break()
     }
-    if(any((end.dates-start.dates)<0)){
+    if (any((end.dates - start.dates) < 0)) {
       warning("end.dates should be dates after start.dates")
       break()
     }
-
+    
     #Step 4. generate the capture history of each individual from the encounter information.
-    index1 <- outer(data[,1],start.dates,FUN=">")
-    index2 <- outer(data[,1],end.dates,FUN="<")
-    e.ch <- index1*index2 #generate "ch" for each encounter
-
+    index1 <- outer(data[, 1], start.dates, FUN = ">")
+    index2 <- outer(data[, 1], end.dates, FUN = "<")
+    e.ch <- index1 * index2 #generate "ch" for each encounter
+    
     #Step 5. turn encounter capture history to individual capture history
     ch.table <- data.table(e.ch, data[varlist])
-    myfun<-function(x) as.numeric(any(x==1))
-    mark.data <- ch.table[,lapply(.SD,myfun), by=varlist] #done!
-    varname <- paste0("V",1:length(start.dates))
-    ch <- apply(mark.data[,varname,with=FALSE],1,paste0,collapse="")
-    return(data.table(mark.data[,varlist,with=FALSE],ch))
+    myfun <- function(x)
+      as.numeric(any(x == 1))
+    mark.data <- ch.table[, lapply(.SD, myfun), by = varlist] #done!
+    varname <- paste0("V", 1:length(start.dates))
+    ch <-
+      apply(mark.data[, varname, with = FALSE], 1, paste0, collapse =
+              "")
+    
+    #Step 6. check for null capture histories
+    if (removeZeros) {
+      zeros <- which(ch == paste0(rep(0, length(start.dates)), collapse = ""))
+      message("Note: Removing ",
+              length(zeros),
+              " individuals with no observed captures.\n")
+    }
+    else
+      zeros <- c()
+    
+    # Return data
+    if (length(zeros) > 0)
+      return(data.table(mark.data[-zeros, varlist, with = FALSE], ch[-zeros]))
+    else
+      return(data.table(mark.data[, varlist, with = FALSE], ch))
   }
