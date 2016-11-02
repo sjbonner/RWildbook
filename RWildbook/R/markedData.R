@@ -170,9 +170,12 @@ markedData <-
     else
       zeros <- c()
     
+    # Step 7. create data table
+    output <- data.table(mark.data[, varlist, with = FALSE], ch)
+    
     # Return data
     if (length(zeros) > 0)
-      return(data.table(mark.data[-zeros, varlist, with = FALSE], ch[-zeros]))
+      return(output[-zeros,])
     else
-      return(data.table(mark.data[, varlist, with = FALSE], ch))
+      return(output)
   }

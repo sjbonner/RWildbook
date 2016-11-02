@@ -6,7 +6,7 @@
 \usage{
 markedData(data, varname_of_capturetime = "dateInMilliseconds",
   varlist = c("individualID"), start.dates, end.dates = NULL,
-  date_format = "\%Y-\%m-\%d", origin = "1970-01-01")
+  date_format = "\%Y-\%m-\%d", origin = "1970-01-01", removeZeros = TRUE)
 }
 \arguments{
 \item{data}{The raw data set from \code{searchWB} function in \code{RWildbook} package.}
@@ -24,6 +24,8 @@ The elements should be in the form of date_format.}
 \item{date_format}{The format for all the arguments of date value.}
 
 \item{origin}{A point of time which set to be zero in millisecond.}
+
+\item{removeZeros}{If TRUE (default) then individuals with no captures are removed from the data.}
 }
 \description{
 Format data from \code{searchWB} function in \code{RWildbook} package for

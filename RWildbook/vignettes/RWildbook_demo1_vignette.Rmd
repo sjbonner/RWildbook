@@ -1,5 +1,5 @@
 ---
-title: "vignette for RWildbook-demo-1 "
+title: "Vignette for RWildbook-demo-1 "
 author: "Xinxin Huang"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

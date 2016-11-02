@@ -4,7 +4,7 @@
 \alias{WBsearchURL}
 \title{Generate the search URL given the JDOQL query.}
 \usage{
-WBsearchURL(username, password, baseURL, jdoql, method = NULL)
+WBsearchURL(username, password, baseURL, jdoql)
 }
 \arguments{
 \item{username}{The username in the Wildbook framework.}
