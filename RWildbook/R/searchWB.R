@@ -150,8 +150,7 @@ searchWB <-
     #For user of different level
     
     # Preliminiaries
-    # Identify OS (Thanks to Hadley Wickham.)
-    myos <- rappdirs:::get_os()
+    myos <- get_os()
     
     # Set download file if needed
     if(is.null(jsonfile))
