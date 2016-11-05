@@ -5,4 +5,7 @@
 #' @docType package
 #' @name RWildbook
 #' @importFrom jsonlite fromJSON
+#' @importFrom data.table data.table
+#' @importFrom marked process.data make.design.data crm
+#'
 NULL

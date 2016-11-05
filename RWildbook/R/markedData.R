@@ -40,6 +40,7 @@
 #' @param removeZeros If TRUE (default) then individuals with no captures are removed from the data.
 #'
 #' @importFrom data.table data.table
+#' @importFrom marked process.data make.design.data crm
 #'
 #' @export
 #'
@@ -66,19 +67,19 @@
 #'                              start.dates = start.dates1,
 #'                              end.dates = NULL,
 #'                              date_format = "%Y-%m-%d",
-#'                              origin = "1970-01-01")
+#'                              origin = "1970-01-01",
+#'                              removeZeros = TRUE)
 #'
-#' ## Remove 0 histories
-#' zeros = which(markedData1.1$ch==paste0(rep(0,19),collapse=""))
-#' markedData1.1 = markedData1.1[-zeros,]
 #'
 #' ## Fit simple CJS model in marked
-#' markedData1.proc=process.data(markedData1.1,model="cjs",begin.time=1)
+#' markedData1.proc=process.data(markedData1.1,model="CJS",begin.time=1)
 #' markedData1.ddl=make.design.data(markedData1.proc)
-#' markedData1.cjs=crm(markedData1.proc,markedData1.ddl,model.parameters=list(Phi=list(formula=~time),p=list(formula=~time)))
+#' markedData1.cjs=crm(markedData1.proc,
+#'                     markedData1.ddl,
+#'                     model.parameters=list(Phi=list(formula=~time),p=list(formula=~time)))
 #'
 #' ## Format data including location as a covariate
-#' markedData1.2 <- markedData(data = data1,
+#'markedData1.2 <- markedData(data = data1,
 #'                            varname_of_capturetime = "dateInMilliseconds",
 #'                            varlist = c("individualID","locationID"),
 #'                            start.dates = start.dates1,
@@ -103,11 +104,11 @@ markedData <-
     #end.dates=NULL(default) means the end date of one capture occasion is the start point of the next capture occasion.
     #date_format sets the format of start.dates and end.dates.
     #origin sets the origin when transfering dates to milliseconds.
-    
+
     #step 1. pull the needed variable from the raw data set.
     data <-
       data[c(varname_of_capturetime, varlist)] #abstract the encounter sighted date and individual ID.
-    
+
     #Step 2. Transfer begin.date, end.date milliseconds.
     start.dates <-
       dateTOmillisecond(
@@ -125,16 +126,12 @@ markedData <-
       )
     if (is.null(end.dates))
       end.dates <-
-      c(
-        start.dates[-1],
-        dateTOmillisecond(
-          date = format(Sys.Date(), date_format),
-          format = date_format,
-          origin = origin,
-          interval = FALSE
-        )
-      )
-    
+      c(start.dates[-1],
+        dateTOmillisecond(date = format(Sys.Date(), date_format),
+                          format = date_format,
+                          origin = origin,
+                          interval = FALSE))
+
     #Step 3. Check the validity of capture time interval.
     if (!length(start.dates) == length(end.dates)) {
       warning("start.dates and end.dates should have the same length")
@@ -144,22 +141,21 @@ markedData <-
       warning("end.dates should be dates after start.dates")
       break()
     }
-    
+
     #Step 4. generate the capture history of each individual from the encounter information.
     index1 <- outer(data[, 1], start.dates, FUN = ">")
     index2 <- outer(data[, 1], end.dates, FUN = "<")
     e.ch <- index1 * index2 #generate "ch" for each encounter
-    
+
     #Step 5. turn encounter capture history to individual capture history
     ch.table <- data.table(e.ch, data[varlist])
-    myfun <- function(x)
-      as.numeric(any(x == 1))
+    myfun <- function(x) as.numeric(any(x == 1))
     mark.data <- ch.table[, lapply(.SD, myfun), by = varlist] #done!
     varname <- paste0("V", 1:length(start.dates))
     ch <-
       apply(mark.data[, varname, with = FALSE], 1, paste0, collapse =
               "")
-    
+
     #Step 6. check for null capture histories
     if (removeZeros) {
       zeros <- which(ch == paste0(rep(0, length(start.dates)), collapse = ""))
@@ -169,10 +165,10 @@ markedData <-
     }
     else
       zeros <- c()
-    
+
     # Step 7. create data table
     output <- data.table(mark.data[, varlist, with = FALSE], ch)
-    
+
     # Return data
     if (length(zeros) > 0)
       return(output[-zeros,])

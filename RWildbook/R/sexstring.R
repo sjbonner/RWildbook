@@ -4,15 +4,7 @@
 #'
 #' @param sex The value for the sex filter.
 #'
-#' @examples
-#' sexstring("male")
-#' sexstring(sex="female")
-#' sexstring(sex="unknown")
-#' sexstring(c("male","female"))
-#' sexstring(c("female","male"))
-#' sexstring(c("female","unknown"))
-#' sexstring(c("male","unknown"))
-#' sexstring(sex=c("female","male","unknown"))
+
 
 sexstring <-
   function(sex){
@@ -28,3 +20,12 @@ sexstring <-
       return(paste0("(",sex,")"))
     }else return(NULL)
   }
+#examples
+#sexstring("male")
+#sexstring(sex="female")
+#sexstring(sex="unknown")
+#sexstring(c("male","female"))
+#sexstring(c("female","male"))
+#sexstring(c("female","unknown"))
+#sexstring(c("male","unknown"))
+#sexstring(sex=c("female","male","unknown"))
