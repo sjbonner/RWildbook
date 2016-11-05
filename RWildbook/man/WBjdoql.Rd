@@ -44,9 +44,4 @@ WBjdoql(object = "encounter", location = NULL, locationID = NULL,
 \description{
 This function generate the JDOQL query string according to the filters specified by users. The JDOQL query is an essential part of the search URL.
 }
-\examples{
-##generate the JDOQL query for searching all the encounters of individual "a-001".
-jdoql1 <- WBjdoql(object="encounter",individualID = "a-001")
-
-}
 

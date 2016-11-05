@@ -23,16 +23,4 @@ This function is to transform a period of time in date to millisecond according 
 \details{
 A vector of size two represent a period of time. The start date of the period will be transform to the first millisecond of the date and the end of the period to the last millisecond.
 }
-\examples{
-dateTOmillisecond(date=c("1970-01-01","1970-02-01"),interval=TRUE)
-#When the first date is after the second one
-dateTOmillisecond(date=c("1970-02-01","1970-01-01"),interval=TRUE)
-
-#examples in different formats
-dateTOmillisecond(date=c("1970-01-01","1970-02-01"),format="\%Y-\%d-\%m",interval=TRUE)
-dateTOmillisecond(date=c("1970/01/01","1970/02/01"),format="\%Y/\%m/\%d",interval=TRUE)
-
-#When "date" does not represent a period of time
-dateTOmillisecond(date=c("1970-01-01","1970-02-01"),interval=FALSE)
-}
 

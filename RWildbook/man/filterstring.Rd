@@ -18,7 +18,4 @@ filterstring(filtername, filtervalues, logic = "||", bridge = "==")
 \description{
 This function is to generate the string in the JDOQL query for some given value of a filter.
 }
-\examples{
-filterstring(filtername = "locationID", filtervalues = c("1","1a"))
-}
 
