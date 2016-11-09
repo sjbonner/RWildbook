@@ -114,7 +114,7 @@
 #' @export
 #'
 #' @examples
-#' ## The following examples conduct the same search using the complete searchURL, JDOQL, or variable filters.
+#' ## The following examples conduct the same search.
 #'
 #' ## Search using filter arguments
 #' data1 <- searchWB(username="xinxin",

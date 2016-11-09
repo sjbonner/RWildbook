@@ -126,7 +126,7 @@ The default value for some filter arguments are NULL. NULL value for a filter ar
 returns data not filtering that argument.
 }
 \examples{
-## The following examples conduct the same search using the complete searchURL, JDOQL, or variable filters.
+## The following examples conduct the same search.
 
 ## Search using filter arguments
 data1 <- searchWB(username="xinxin",
