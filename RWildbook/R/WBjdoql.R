@@ -31,18 +31,15 @@
 #' @param Date_of_death A character vector for searching data of individual which is dead during a period of time.
 #'
 #'
-#' @examples
-#' ##generate the JDOQL query for searching all the encounters of individual "a-001".
-#' jdoql1 <- WBjdoql(object="encounter",individualID = "a-001")
 #'
 WBjdoql <-
 function(object="encounter",
-                  location=NULL,locationID=NULL,
-                  sighting_date=c("1964-01-01","2016-12-31"),encounter_submission_dates=c("2003-01-01","2016-12-31"), date_format="%Y-%m-%d",
-                  sex=c("male","female","unknown"),status=c("alive","dead"),
-                  measurement=NULL,individualID=NULL,
-                  encounterID=NULL,encounter_type=NULL,
-                  Date_of_birth=NULL,Date_of_death=NULL){
+         location=NULL,locationID=NULL,
+         sighting_date=c("1964-01-01","2016-12-31"),encounter_submission_dates=c("2003-01-01","2016-12-31"), date_format="%Y-%m-%d",
+         sex=c("male","female","unknown"),status=c("alive","dead"),
+         measurement=NULL,individualID=NULL,
+         encounterID=NULL,encounter_type=NULL,
+         Date_of_birth=NULL,Date_of_death=NULL){
   #Set the comment part of the JDOQL query according to the object value
   if(tolower(object)=="encounter"){
     add_name<-NULL
@@ -67,7 +64,7 @@ function(object="encounter",
   if(!is.null(location)){
     location<-paste(location, collapse = " ")
     location<-paste0(add_name,"verbatimLocality.toLowerCase().indexOf(??",location,"')")
-    location<-filterstring(filtername = location, filtervalue = -1, bridge = "!=")
+    location<-filterstring(filtername = location, filtervalues = -1, bridge = "!=")
   }
   locationID<-filterstring(filtername = paste0(add_name,"locationID"), filtervalues = locationID)
   sighting_date<-dateTOmillisecond(date=sighting_date,origin="1970-01-01",format=date_format)

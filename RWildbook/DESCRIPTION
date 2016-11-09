@@ -1,21 +1,22 @@
 Package: RWildbook
 Type: Package
-Title: Interface for the Wildbook framework
+Title: The R interface with the Wildbook framework
 Version: 1.0
 Date: 2016-09-11
 Author: c(person("Simon", "Bonner", email = "sbonner6@uwo.ca", role = c("aut")),person("Xinxin", "Huang", email = "xhuan63@uwo.ca", role = c("aut","cre")))
-Maintainer: Xinxin Huang <xhuan63@uwo.ca>
+Maintainer: Simon Bonner <sbonner6@uwo.ca>
 Description: The primary objective of this package is to provide an R interface
     with the Wildbook mark-recapture ecological database framework. It helps users
     to pull data from the Wildbook framework and format data for further analysis
     with mark-recapture applications like Program MARK(which can be accessed via the
     RMark package in R).
-License: GPL (>=2)
+License: GPL(>=2)
 Depends:
     jsonlite,
     data.table,
-    rappdirs
+    utils
 RoxygenNote: 5.0.1
 Suggests: knitr,
+    marked,
     rmarkdown
 VignetteBuilder: knitr

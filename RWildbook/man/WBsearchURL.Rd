@@ -18,10 +18,4 @@ WBsearchURL(username, password, baseURL, jdoql)
 \description{
 This function helps users to generate the URL for data searching in the Wildbook framework with the account information of Wildbook, the URl of the desire wildbook and the JDOQL query.
 }
-\examples{
-searchURL1 <- WBsearchURL(username="xinxin",
-                          password="changeme",
-                          baseURL="whaleshark.org",
-                          jdoql="SELECT FROM org.ecocean.MarkedIndividual WHERE individualID == 'A-001'")
-}
 

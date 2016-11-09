@@ -13,17 +13,6 @@
 #' @param interval A logical argument which equals to TRUE by default when the function transfer an period of dates to millisecond.
 #' When interval=FALSE, the function returns the last minute of every elements of date to millisecons.
 #'
-#' @examples
-#' dateTOmillisecond(date=c("1970-01-01","1970-02-01"),interval=TRUE)
-#' #When the first date is after the second one
-#' dateTOmillisecond(date=c("1970-02-01","1970-01-01"),interval=TRUE)
-#'
-#' #examples in different formats
-#' dateTOmillisecond(date=c("1970-01-01","1970-02-01"),format="%Y-%d-%m",interval=TRUE)
-#' dateTOmillisecond(date=c("1970/01/01","1970/02/01"),format="%Y/%m/%d",interval=TRUE)
-#'
-#' #When "date" does not represent a period of time
-#' dateTOmillisecond(date=c("1970-01-01","1970-02-01"),interval=FALSE)
 
 dateTOmillisecond <-
 function(date,origin="1970-01-01",format="%Y-%m-%d",interval=TRUE){
@@ -51,3 +40,14 @@ function(date,origin="1970-01-01",format="%Y-%m-%d",interval=TRUE){
   }
   return(date1)
 }
+#examples
+#dateTOmillisecond(date=c("1970-01-01","1970-02-01"),interval=TRUE)
+##When the first date is after the second one
+#dateTOmillisecond(date=c("1970-02-01","1970-01-01"),interval=TRUE)
+#
+##examples in different formats
+#dateTOmillisecond(date=c("1970-01-01","1970-02-01"),format="%Y-%d-%m",interval=TRUE)
+#dateTOmillisecond(date=c("1970/01/01","1970/02/01"),format="%Y/%m/%d",interval=TRUE)
+#
+##When "date" does not represent a period of time
+#dateTOmillisecond(date=c("1970-01-01","1970-02-01"),interval=FALSE)

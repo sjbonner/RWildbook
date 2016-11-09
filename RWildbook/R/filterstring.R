@@ -10,8 +10,7 @@
 #'
 #' @param bridge An operator to connect the name and the default value is "==".
 #'
-#' @examples
-#' filterstring(filtername = "locationID", filtervalues = c("1","1a"))
+
 
 filterstring <-
   function(filtername,filtervalues,logic="||",bridge="=="){
@@ -28,3 +27,6 @@ filterstring <-
     } else return(NULL)
 
   }
+
+#examples
+#filterstring(filtername = "locationID", filtervalues = c("1","1a"))

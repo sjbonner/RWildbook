@@ -12,14 +12,4 @@ sexstring(sex)
 \description{
 This function is to generate the sex related portion in the JDOQL query.
 }
-\examples{
-sexstring("male")
-sexstring(sex="female")
-sexstring(sex="unknown")
-sexstring(c("male","female"))
-sexstring(c("female","male"))
-sexstring(c("female","unknown"))
-sexstring(c("male","unknown"))
-sexstring(sex=c("female","male","unknown"))
-}
 

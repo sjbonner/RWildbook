@@ -72,16 +72,16 @@ markedData1.1 <- markedData(data = data1,
                              start.dates = start.dates1,
                              end.dates = NULL,
                              date_format = "\%Y-\%m-\%d",
-                             origin = "1970-01-01")
+                             origin = "1970-01-01",
+                             removeZeros = TRUE)
 
-## Remove 0 histories
-zeros = which(markedData1.1$ch==paste0(rep(0,19),collapse=""))
-markedData1.1 = markedData1.1[-zeros,]
 
 ## Fit simple CJS model in marked
-markedData1.proc=process.data(markedData1.1,model="cjs",begin.time=1)
+markedData1.proc=process.data(markedData1.1,model="CJS",begin.time=1)
 markedData1.ddl=make.design.data(markedData1.proc)
-markedData1.cjs=crm(markedData1.proc,markedData1.ddl,model.parameters=list(Phi=list(formula=~time),p=list(formula=~time)))
+markedData1.cjs=crm(markedData1.proc,
+                    markedData1.ddl,
+                    model.parameters=list(Phi=list(formula=~time),p=list(formula=~time)))
 
 ## Format data including location as a covariate
 markedData1.2 <- markedData(data = data1,
