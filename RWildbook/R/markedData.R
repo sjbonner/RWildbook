@@ -148,7 +148,7 @@ markedData <-
 
     #Step 5. turn encounter capture history to individual capture history
     ch.table <- data.table(e.ch, data[varlist])
-    myfun <- function(x) as.numeric(any(x == 1))
+    myfun <- function(x) as.numeric(any(x >= 1))
     mark.data <- ch.table[, lapply(.SD, myfun), by = varlist] #done!
     varname <- paste0("V", 1:length(start.dates))
     ch <-
