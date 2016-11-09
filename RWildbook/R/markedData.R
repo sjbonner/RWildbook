@@ -40,7 +40,6 @@
 #' @param removeZeros If TRUE (default) then individuals with no captures are removed from the data.
 #'
 #' @importFrom data.table data.table
-#' @importFrom marked process.data make.design.data crm
 #'
 #' @export
 #'
