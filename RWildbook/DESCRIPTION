@@ -15,8 +15,9 @@ Depends:
     jsonlite,
     data.table,
     utils
+Imports: 
+    marked
 RoxygenNote: 5.0.1
 Suggests: knitr,
-    marked,
     rmarkdown
 VignetteBuilder: knitr
