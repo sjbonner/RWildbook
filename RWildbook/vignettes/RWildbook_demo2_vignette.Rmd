@@ -1,12 +1,13 @@
 ---
-title: "Linking RWildbook and marked"
+title: "Linking Wildbook and marked via RWildbook"
 author: "Simon Bonner"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Linking RWildbook and marked via RWildbook}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{marked}
 ---
 
 Here we show how data retrieved from a Wildbook database can be formatted and analysed using the marked package by Jeff Laake (also the creator of the RMark package). In particular, we fit a simple Cormack-Jolly-Seber model to data retrieved from whaleshark.org.
@@ -53,6 +54,7 @@ We can now fit the Cormack-Jolly-Seber model using the functions in mark to firs
 ```
 and plot the estimated capture and survival probabilities:
 ```{r}
+## Plot parameter estimates
 plot(1998:2015,markedData1.cjs$results$reals$Phi$estimate,
         pch=16,col="green",
         main="Estimated Capture and Survival Probabilities",
