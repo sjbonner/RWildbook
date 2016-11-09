@@ -116,18 +116,26 @@
 #' @examples
 #' ## The following examples conduct the same search using the complete searchURL, JDOQL, or variable filters.
 #'
-#' data1 <- searchWB(searchURL = "http://xinxin:changeme@whaleshark.org/api/jdoql?SELECT FROM org.ecocean.Encounter WHERE individualID == 'A-001'")
-#'
-#' data2 <- searchWB(username="xinxin",
-#'                   password="changeme",
-#'                   baseURL ="whaleshark.org",
-#'                   jdoql="SELECT FROM org.ecocean.Encounter WHERE catalogNumber != null &&  (( dateInMilliseconds >= -189388800000 )&&( dateInMilliseconds <= 1483228740000 ))&&(( dwcDateAddedLong >= 1041379200000 )&&( dwcDateAddedLong <= 1483228740000 ))&&(( individualID == 'a-001' )) ")
-#'
-#' data3 <- searchWB(username="xinxin",
+#' ## Search using filter arguments
+#' data1 <- searchWB(username="xinxin",
 #'                   password="changeme",
 #'                   baseURL ="whaleshark.org",
 #'                   object="Encounter",
 #'                   individualID=c("A-001"))
+#'
+#' ## Search using existing JDOQL string
+#' jdoql <- "SELECT FROM org.ecocean.Encounter WHERE individualID == 'A-001'"
+#'
+#' data2 <- searchWB(username="xinxin",
+#'                   password="changeme",
+#'                   baseURL ="whaleshark.org",
+#'                   jdoql=jdoql)
+#'
+#' ## Search using existing URL
+#' WBurl <- paste0("http://xinxin:changeme@whaleshark.org/api/jdoql?",jdoql)
+#' 
+#' data3 <- searchWB(searchURL = WBurl)
+#' 
 #'
 
 searchWB <-
