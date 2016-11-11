@@ -1,7 +1,7 @@
 Package: RWildbook
 Type: Package
 Title: The R interface with the Wildbook framework
-Version: 1.0
+Version: 0.9
 Date: November 10, 2016
 Author: c(person("Simon", "Bonner", email = "sbonner6@uwo.ca", role = c("aut")),person("Xinxin", "Huang", email = "xhuan63@uwo.ca", role = c("aut","cre")))
 Maintainer: Simon Bonner <sbonner6@uwo.ca>
