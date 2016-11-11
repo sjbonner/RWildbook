@@ -52,11 +52,16 @@ with \code{process.data} function in \code{marked} package.
 }
 \examples{
 
+\dontrun{
+## You will need to supply your own login information for whaleshark.org to
+## run these examples.
+
+## Load packages
 library(marked)
 
 ## Extract data for individual A-001 through A-099
-data1 <- searchWB(username="xinxin",
-                  password="changeme",
+data1 <- searchWB(username="username",
+                  password="password",
                   baseURL ="whaleshark.org",
                   object="Encounter",
                   individualID=paste0("A-0",rep(0:9,rep(10,10)),rep(0:9,10))[-1])
@@ -91,6 +96,7 @@ markedData1.2 <- markedData(data = data1,
                            end.dates = end.dates1,
                            date_format = "\%Y-\%m-\%d",
                            origin = "1970-01-01")
+}                           
 
 }
 

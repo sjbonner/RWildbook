@@ -45,12 +45,16 @@
 #'
 #' @examples
 #'
-## Load packages
+#' \dontrun{
+#' ## You will need to supply your own login information for whaleshark.org to
+#' ## run these examples.
+#' 
+#' ## Load packages
 #' library(marked)
 #'
 #' ## Extract data for individual A-001 through A-099
-#' data1 <- searchWB(username="xinxin",
-#'                   password="changeme",
+#' data1 <- searchWB(username="username",
+#'                   password="password",
 #'                   baseURL ="whaleshark.org",
 #'                   object="Encounter",
 #'                   individualID=paste0("A-0",rep(0:9,rep(10,10)),rep(0:9,10))[-1])
@@ -78,13 +82,14 @@
 #'                     model.parameters=list(Phi=list(formula=~time),p=list(formula=~time)))
 #'
 #' ## Format data including location as a covariate
-#'markedData1.2 <- markedData(data = data1,
+#' markedData1.2 <- markedData(data = data1,
 #'                            varname_of_capturetime = "dateInMilliseconds",
 #'                            varlist = c("individualID","locationID"),
 #'                            start.dates = start.dates1,
 #'                            end.dates = end.dates1,
 #'                            date_format = "%Y-%m-%d",
 #'                            origin = "1970-01-01")
+#' }                           
 #'
 markedData <-
   function(data,

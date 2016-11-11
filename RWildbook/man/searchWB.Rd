@@ -126,11 +126,14 @@ The default value for some filter arguments are NULL. NULL value for a filter ar
 returns data not filtering that argument.
 }
 \examples{
+\dontrun{
 ## The following examples conduct the same search.
+## You will need to supply your own login information for whaleshark.org to
+## run these examples.
 
 ## Search using filter arguments
-data1 <- searchWB(username="xinxin",
-                  password="changeme",
+data1 <- searchWB(username="username",
+                  password="password",
                   baseURL ="whaleshark.org",
                   object="Encounter",
                   individualID=c("A-001"))
@@ -138,16 +141,16 @@ data1 <- searchWB(username="xinxin",
 ## Search using existing JDOQL string
 jdoql <- "SELECT FROM org.ecocean.Encounter WHERE individualID == 'A-001'"
 
-data2 <- searchWB(username="xinxin",
-                  password="changeme",
+data2 <- searchWB(username="username",
+                  password="password",
                   baseURL ="whaleshark.org",
                   jdoql=jdoql)
 
 ## Search using existing URL
-WBurl <- paste0("http://xinxin:changeme@whaleshark.org/api/jdoql?",jdoql)
+WBurl <- paste0("http://username:password@whaleshark.org/api/jdoql?",jdoql)
 
 data3 <- searchWB(searchURL = WBurl)
-
+}
 
 }
 

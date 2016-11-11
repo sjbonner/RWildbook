@@ -12,7 +12,7 @@
 
 <meta name="author" content="Xinxin Huang" />
 
-<meta name="date" content="2016-11-01" />
+<meta name="date" content="2016-11-10" />
 
 <title>Vignette for RWildbook-demo-1</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Vignette for RWildbook-demo-1</h1>
 <h4 class="author"><em>Xinxin Huang</em></h4>
-<h4 class="date"><em>2016-11-01</em></h4>
+<h4 class="date"><em>2016-11-10</em></h4>
 
 
 
@@ -79,22 +79,41 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li>Case 1. You can supply filters based on the variables within the database.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data1 &lt;-<span class="st"> </span><span class="kw">searchWB</span>(<span class="dt">username=</span><span class="st">&quot;xinxin&quot;</span>,
-                  <span class="dt">password=</span><span class="st">&quot;changeme&quot;</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data1 &lt;-<span class="st"> </span><span class="kw">searchWB</span>(<span class="dt">username=</span><span class="st">&quot;username&quot;</span>,
+                  <span class="dt">password=</span><span class="st">&quot;password&quot;</span>,
                   <span class="dt">baseURL =</span><span class="st">&quot;whaleshark.org&quot;</span>,
                   <span class="dt">object=</span><span class="st">&quot;Encounter&quot;</span>,
                   <span class="dt">individualID=</span><span class="kw">c</span>(<span class="st">&quot;A-001&quot;</span>))</code></pre></div>
 <ul>
 <li>Case 2. If you have the JDOQL query for the search, You can ignore the filter arguments.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data2&lt;-<span class="st"> </span><span class="kw">searchWB</span>(<span class="dt">username=</span><span class="st">&quot;xinxin&quot;</span>,
-                 <span class="dt">password=</span><span class="st">&quot;changeme&quot;</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data2&lt;-<span class="st"> </span><span class="kw">searchWB</span>(<span class="dt">username=</span><span class="st">&quot;username&quot;</span>,
+                 <span class="dt">password=</span><span class="st">&quot;password&quot;</span>,
                  <span class="dt">baseURL =</span><span class="st">&quot;whaleshark.org&quot;</span>,
                  <span class="dt">jdoql=</span><span class="st">&quot;SELECT FROM org.ecocean.Encounter WHERE individualID == 'A-001'&quot;</span>)</code></pre></div>
 <ul>
 <li>Case 3. If you have a searchURL on hand, you can directly open the URL with function “searchWB”.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data3 &lt;-<span class="st"> </span><span class="kw">searchWB</span>(<span class="dt">searchURL =</span> <span class="st">&quot;http://xinxin:changeme@whaleshark.org/api/jdoql?SELECT FROM org.ecocean.Encounter WHERE individualID == 'A-001'&quot;</span>)</code></pre></div>
+<p>If you are using Windows then you can enter the username and password directly in the search URL like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data3 &lt;-<span class="st"> </span><span class="kw">searchWB</span>(<span class="dt">searchURL =</span> <span class="st">&quot;http://username:password@whaleshark.org/api/jdoql?SELECT FROM org.ecocean.Encounter WHERE individualID == 'A-001'&quot;</span>)</code></pre></div>
+<p>Otherwise, on MacOS or Linux you will need to supply your username and password as separate arguements:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data3 &lt;-
+<span class="st">  </span><span class="kw">searchWB</span>(<span class="dt">username =</span> <span class="st">&quot;username&quot;</span>,
+           <span class="dt">password =</span> <span class="st">&quot;password&quot;</span>,
+           <span class="dt">searchURL =</span> <span class="st">&quot;http://www.whaleshark.org/api/jdoql?SELECT FROM org.ecocean.Encounter WHERE individualID == 'A-001'&quot;</span>)</code></pre></div>
+<ul>
+<li>Results.</li>
+</ul>
+<p>All of these return a data frame like the following (note that the data has been altered for anonymity):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;vignette_1_data&quot;</span>,<span class="dt">package=</span><span class="st">&quot;RWildbook&quot;</span>)
+<span class="kw">head</span>(vignette_1_data)[,<span class="kw">c</span>(<span class="st">&quot;location&quot;</span>,<span class="st">&quot;year&quot;</span>,<span class="st">&quot;month&quot;</span>,<span class="st">&quot;day&quot;</span>)]</code></pre></div>
+<pre><code>##                                  location year month day
+## 1                    Ningaloo Marine Park 2001     5  11
+## 2                    Ningaloo Marine Park 2003     4   2
+## 3              north ningaloo marine park 2011     5  27
+## 4 Exmouth Dive Centre tour, Ningaloo Reef 2001     5  16
+## 5         Ningaloo Marine Park (Northern) 2009     6  18
+## 6            Coral Bay, Western Australia 2005     5  10</code></pre>
 
 
 

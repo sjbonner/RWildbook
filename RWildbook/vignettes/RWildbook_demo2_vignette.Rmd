@@ -14,29 +14,34 @@ Here we show how data retrieved from a Wildbook database can be formatted and an
 
 First we load the RWildbook and marked package:
 ```{r}
-## Load packages
+## Load other packages
 library(RWildbook)
 library(marked)
 ```
 
-Next we use the searchWB() function from RWIldbook to retrieve data for the first 99 whale sharks:
-```{r}
+Next we use the searchWB() function from RWildbook to retrieve data for the first 99 whale sharks:
+```{r,eval=FALSE}
 ## Extract data for individual A-001 through A-099
-data1 <- searchWB(username="xinxin",
-                   password="changeme",
-                   baseURL ="whaleshark.org",
-                   object="Encounter",
-                   individualID=paste0("A-0",rep(0:9,rep(10,10)),rep(0:9,10))[-1])
+vignette_2_data <- searchWB(username="username",
+                            password="password",
+                            baseURL ="whaleshark.org",
+                            object="Encounter",
+                            individualID=paste0("A-0",rep(0:9,rep(10,10)),rep(0:9,10))[-1])
+```
+This results in the following data frame:
+```{r}
+data("vignette_2_data",package="RWildbook")
+head(vignette_2_data)[,c("individualID","location","year","month","day")]
 ```
 
-Now create capture histories by defining the start and end times of the capture occasions. For illustration, we assume that the capture occasions cover January, February, and March of each year from 1998 through 2016.
+Now we can create capture histories by defining the start and end times of the capture occasions. For illustration, we assume that the capture occasions cover January, February, and March of each year from 1998 through 2016.
 ```{r}
  ## Define start and end dates of capture occasions
  start.dates1 <- paste0(1998:2016,"-01-01") #Define the start.date value
  end.dates1 <- paste0(1998:2016,"-04-01") #Define the end.date value
 
  ## Format data for use in marked
- markedData1 <- markedData(data = data1,
+ markedData1 <- markedData(data = vignette_2_data,
                               varname_of_capturetime = "dateInMilliseconds",
                               varlist = c("individualID"),
                               start.dates = start.dates1,
