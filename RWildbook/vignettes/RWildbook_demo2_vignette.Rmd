@@ -28,7 +28,7 @@ vignette_2_data <- searchWB(username="username",
                             object="Encounter",
                             individualID=paste0("A-0",rep(0:9,rep(10,10)),rep(0:9,10))[-1])
 ```
-This results in the following data frame:
+This results in the following data frame (not the that the time of encounter has been modified to maintain data privacy):
 ```{r}
 data("vignette_2_data",package="RWildbook")
 head(vignette_2_data)[,c("individualID","location","year","month","day")]

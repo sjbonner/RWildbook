@@ -77,8 +77,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Here we show how data retrieved from a Wildbook database can be formatted and analysed using the marked package by Jeff Laake (also the creator of the RMark package). In particular, we fit a simple Cormack-Jolly-Seber model to data retrieved from whaleshark.org.</p>
 <p>First we load the RWildbook and marked package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Load other packages
-<span class="kw">library</span>(RWildbook)
-<span class="kw">library</span>(marked)</code></pre></div>
+<span class="kw">library</span>(RWildbook)</code></pre></div>
+<pre><code>## Loading required package: jsonlite</code></pre>
+<pre><code>## Loading required package: data.table</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(marked)</code></pre></div>
 <pre><code>## Loading required package: lme4</code></pre>
 <pre><code>## Loading required package: Matrix</code></pre>
 <pre><code>## Loading required package: parallel</code></pre>
@@ -104,9 +106,9 @@ vignette_2_data &lt;-<span class="st"> </span><span class="kw">searchWB</span>(<
 ## 1  30
 ## 2   8
 ## 3   6
-## 4  22
-## 5  16
-## 6  16</code></pre>
+## 4  21
+## 5  15
+## 6  15</code></pre>
 <p>Now we can create capture histories by defining the start and end times of the capture occasions. For illustration, we assume that the capture occasions cover January, February, and March of each year from 1998 through 2016.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> ## Define start and end dates of capture occasions
  start.dates1 &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="dv">1998</span>:<span class="dv">2016</span>,<span class="st">&quot;-01-01&quot;</span>) <span class="co">#Define the start.date value</span>
@@ -245,7 +247,7 @@ vignette_2_data &lt;-<span class="st"> </span><span class="kw">searchWB</span>(<
  Number of evaluations:  10700  -2lnl: 656.8395153
  Number of evaluations:  10800  -2lnl: 656.8394158
  Number of evaluations:  10900  -2lnl: 656.8394159
-## Elapsed time in minutes:  0.0567</code></pre>
+## Elapsed time in minutes:  0.0828</code></pre>
 <p>and plot the estimated capture and survival probabilities:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Plot parameter estimates
 <span class="kw">plot</span>(<span class="dv">1998</span>:<span class="dv">2015</span>,markedData1.cjs$results$reals$Phi$estimate,
