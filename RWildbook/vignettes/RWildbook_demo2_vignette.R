@@ -35,7 +35,7 @@ head(vignette_2_data)[,c("individualID","location","year","month","day")]
  markedData1.ddl=make.design.data(markedData1.proc)
  markedData1.cjs=crm(markedData1.proc,markedData1.ddl,model.parameters=list(Phi=list(formula=~time),p=list(formula=~time)))
 
-## ------------------------------------------------------------------------
+## ----fig.width=6,fig.height=4--------------------------------------------
 ## Plot parameter estimates
 plot(1998:2015,markedData1.cjs$results$reals$Phi$estimate,
         pch=16,col="green",

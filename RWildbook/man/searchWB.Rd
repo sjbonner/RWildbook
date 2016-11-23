@@ -147,7 +147,7 @@ data2 <- searchWB(username="username",
                   jdoql=jdoql)
 
 ## Search using existing URL
-WBurl <- paste0("http://username:password@whaleshark.org/api/jdoql?",jdoql)
+WBurl <- paste0("http://username:password@whaleshark.org/rest/jdoql?",jdoql)
 
 data3 <- searchWB(searchURL = WBurl)
 }

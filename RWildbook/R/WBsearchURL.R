@@ -28,12 +28,12 @@ WBsearchURL <-
                           password,
                           "@",
                           baseURL,
-                          "/api/jdoql?",
+                          "/rest/jdoql?",
                           jdoql)
     }
     else if(is.null(username) && is.null(password)) {
       searchURL <- paste0("http://www.", baseURL,
-                          "/api/jdoql?", jdoql)
+                          "/rest/jdoql?", jdoql)
     }
     else{
       stop(
