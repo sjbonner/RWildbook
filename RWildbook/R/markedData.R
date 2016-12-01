@@ -1,3 +1,6 @@
+## Declare .SD from the data.table package as a global variable to pass CRAN check.
+if(getRversion() >= "2.15.1")  utils::globalVariables(".SD","RWildbook",add=TRUE)
+
 #' Format Wildbook data for mark-recaputure analysis
 #'
 #' Format data from \code{searchWB} function in \code{RWildbook} package for

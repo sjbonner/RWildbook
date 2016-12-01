@@ -1,15 +1,14 @@
 Package: RWildbook
 Type: Package
-Title: The R interface with the Wildbook framework
+Title: Interface for the 'Wildbook' Wildlife Data Management Framework
 Version: 0.9
-Date: November 10, 2016
+Date: 2016-11-26
 Author: c(person("Simon", "Bonner", email = "sbonner6@uwo.ca", role = c("aut")),person("Xinxin", "Huang", email = "xhuan63@uwo.ca", role = c("aut","cre")))
 Maintainer: Simon Bonner <sbonner6@uwo.ca>
-Description: The primary objective of this package is to provide an R interface
-    with the Wildbook mark-recapture ecological database framework. It helps users
-    to pull data from the Wildbook framework and format data for further analysis
-    with mark-recapture applications like Program MARK(which can be accessed via the
-    RMark package in R).
+Description: Provides an R interface with the 'Wildbook' mark-recapture ecological database framework. It 
+    helps users to pull data from the 'Wildbook' framework and format data for further analysis
+    with mark-recapture applications like 'Program MARK' (which can be accessed via the 'RMark' package in 'R').
+    Further information on the 'Wildbook' framework is available at: <http://www.wildbook.org/doku.php>. 
 License: GPL(>=2)
 Depends:
     R (>= 3.0.0),
