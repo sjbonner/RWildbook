@@ -147,6 +147,7 @@ searchWB <-
            password = NULL,
            baseURL,
            jdoql = NULL,
+           protocol="https",
            object = "encounter",
            location = NULL,
            locationID = NULL,
@@ -201,10 +202,10 @@ searchWB <-
       }
       if (myos == "win" || myos == "unix") {
         searchURL <-
-          WBsearchURL(username, password, baseURL, jdoql)
+          WBsearchURL(username, password, baseURL, jdoql,protocol)
       }
       else if(myos == "mac"){
-        searchURL <- WBsearchURL(NULL, NULL, baseURL, jdoql)
+        searchURL <- WBsearchURL(NULL, NULL, baseURL, jdoql,protocol)
       }
       else{
         stop("Unknown operating system",myos,".\n")
