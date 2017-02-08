@@ -5,9 +5,9 @@
 \title{Pull data from the Wildbook framework.}
 \usage{
 searchWB(searchURL = NULL, username = NULL, password = NULL, baseURL,
-  jdoql = NULL, object = "encounter", location = NULL,
-  locationID = NULL, sighting_date = c("1964-01-01", "2016-12-31"),
-  encounter_submission_date = c("2003-01-01", "2016-12-31"),
+  jdoql = NULL, protocol = "https", object = "encounter",
+  location = NULL, locationID = NULL, sighting_date = c("1964-01-01",
+  "2016-12-31"), encounter_submission_date = c("2003-01-01", "2016-12-31"),
   date_format = "\%Y-\%m-\%d", sex = c("male", "female", "unknown"),
   status = c("alive", "dead"), measurement = NULL, individualID = NULL,
   encounterID = NULL, encounter_type = NULL, Date_of_birth = NULL,
