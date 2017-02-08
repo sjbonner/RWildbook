@@ -107,6 +107,8 @@
 #'
 #' @param showJDOQL logical. If FALSE(default) the function will not return
 #'  the search JDOQL, otherwise the function returns the search JDOQL.
+#' 
+#' @param protocol Defines communication protocol. either "http" or "https" (default).
 #'
 #' @importFrom jsonlite fromJSON
 #' @importFrom utils download.file URLencode
