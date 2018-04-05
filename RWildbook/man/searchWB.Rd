@@ -25,6 +25,8 @@ searchWB(searchURL = NULL, username = NULL, password = NULL, baseURL,
 
 \item{jdoql}{A character object of the JDOQL string for data searching.}
 
+\item{protocol}{Defines communication protocol. either "http" or "https" (default).}
+
 \item{object}{A character object for defining the the search type. The value can be
 either "encounter" for the encounter search or "individual" for the individual search.
 The default value is "encounter" for encounter search.}
